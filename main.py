@@ -14,6 +14,10 @@ import os
 
 tf.disable_v2_behavior()
 
+config = tf.compat.v1.ConfigProto()
+config.gpu_options.allow_growth = True
+sess = tf.Session(config=config)
+
 # comment out to use GPU, and uncomment to use CPU. Use for bench marking only!
 # vvv
 
@@ -95,7 +99,7 @@ start_time = time.time()
 
 for i in range(epoch):
   print('total_epochs: ', i+1, '/', epoch, '\n---')
-  model.fit(X, enc_y, epochs = 1, batch_size = b_size, validation_split = 0.01, shuffle = True)
+  model.fit(X, enc_y, epochs = 1, batch_size = b_size, validation_split = 0.005, shuffle = True)
   # store current data
   dat = model.evaluate(tX, enc_ty)
   accd = dat[1]
